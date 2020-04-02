@@ -1,0 +1,125 @@
+html,body {
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+@import './mixins';
+
+main {
+    width: 100vw;
+    height: 100vh;
+    background-color: lightgray;
+}
+
+
+
+
+
+
+
+
+
+/*******************/
+/****PLAYER INFO****/
+/*******************/
+
+
+
+#player-info {
+    width: 100%;
+    height: 23%;
+    background-color: darkkhaki;
+    @include flexBox(row);
+    @include align(space-between, center);
+
+    .player {
+        width: 20%;
+        height: 100%;
+        background-color: darkorchid;
+        @include flexBox(column);
+
+        div {
+            width: 85%;
+            height: 50%;
+            background-color: deeppink;
+            margin-bottom: 20px;
+            @include flexBox(row);
+            @include align(center, center);
+
+            h2 {
+                margin: 0;
+                font-size: 2.5em;
+                text-transform: uppercase;
+                text-align: center;
+            }
+        }
+
+        span {
+            display: block;
+            width: 18%;
+            height: 13%;
+            background-color: gold;
+            @include flexBox(row);
+            @include align(center, center);
+        }
+    }
+
+    .player1 {
+        @include align(center, flex-start);
+
+        div, span {
+            border-radius: 0 10px 10px 0;
+        }
+    }
+
+    .player2 {
+        @include align(center, flex-end);
+
+        div, span {
+            border-radius: 10px 0 0 10px;
+        }
+    }
+
+    .banner {
+        width: 45%;
+        height: 100%;
+    }
+}
+
+
+
+
+
+
+
+
+
+/**********************/
+/****GAME INTERFACE****/
+/**********************/
+
+#connect-game {
+    width: 100%;
+    height: 77%;
+    background-color: indianred;
+    @include flexBox(row);
+    @include align(space-between, flex-start);
+    position: relative;
+
+    .left, .right {
+        width: 20%;
+        height: 100%;
+        background-color: brown;
+    }
+}
+
+#board {
+    width: 50%;
+    height: 110%;
+    background-color: chartreuse;
+    bottom: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}

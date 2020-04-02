@@ -1,8 +1,16 @@
 import React from 'react';
+import Players from './components/Players';
+import Game from './components/Game';
 
 function App() {
   return (
-    <h1>Hello Mate</h1>
+    <main>
+
+      <Players />
+
+      <Game />
+
+    </main>
   )
 }
 
