@@ -112,14 +112,153 @@ main {
         height: 100%;
         background-color: brown;
     }
+
+    .game-wrapper {
+        width: 60%;
+        height: 100%;
+        background-color: burlywood;
+        @include flexBox(row);
+        @include align(center, flex-start);
+    }
 }
 
-#board {
-    width: 50%;
-    height: 110%;
-    background-color: chartreuse;
-    bottom: 0;
+
+
+
+#game-pieces {
+    width: 668px;
+    height: 90px;
+    background-color: cadetblue;
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    top: -90px;
+    @include flexBox(row);
+    @include align(space-evenly, center);
+
+    div {
+        width: 77px;
+        height: 77px;
+        position: relative;
+
+        div {
+            position: absolute;
+        }
+
+        .playerOne {
+            z-index: 1;
+            opacity: 0;
+
+            &:hover {
+                opacity: .6;
+            }
+        }
+
+        .playerTwo {
+            z-index: 2;
+            opacity: 0;
+
+            &:hover {
+                opacity: .6;
+            }
+        }
+        
+        span {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+
+            &.blue {
+                background-color: blue;
+            }
+
+            &.red {
+                background-color: red;
+            }
+        }
+    }
+}
+
+
+
+
+
+#board {
+    width: 668px;
+    height: 688px;
+    background-color: chartreuse;
+    @include flexBox(row);
+    @include align(space-evenly, center);
+    position: absolute;
+    bottom: 0;
+
+    #blocker {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100px;
+        z-index: 0;
+        background-color: rebeccapurple;
+    }
+
+    .column {
+        width: 11.5%;
+        height: 96%;
+        // background-color: darkgoldenrod;
+        @include flexBox(column);
+        @include align(space-between, flex-start);
+        z-index: 3;
+
+        .slots {
+            width: 77px;
+            height: 77px;
+            background-color: darkmagenta;
+            border-radius: 50%;
+        }
+
+        .pieces {
+            width: 77px;
+            height: 77px;
+
+            div {
+                position: absolute;
+                width: inherit;
+                height: inherit;
+            }
+    
+            .playerOne {
+                z-index: 1;
+                opacity: 0;
+    
+                &:hover {
+                    opacity: .6;
+                }
+            }
+    
+            .playerTwo {
+                z-index: 2;
+                opacity: 0;
+    
+                &:hover {
+                    opacity: .6;
+                }
+            }
+            
+            span {
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+    
+                &.blue {
+                    background-color: blue;
+                }
+    
+                &.red {
+                    background-color: red;
+                }
+            }
+        }
+    }
 }

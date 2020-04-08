@@ -1,4 +1,5 @@
 import React from 'react';
+import Board from './Board';
 
 
 class Game extends React.Component {
@@ -15,7 +16,7 @@ class Game extends React.Component {
 
                 <div className="left"></div>
 
-                <div id="board"></div>
+                <Board />
 
                 <div className="right"></div>
 

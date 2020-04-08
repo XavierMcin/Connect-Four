@@ -152,14 +152,188 @@ main {
   background-color: brown;
 }
 
-#board {
-  width: 50%;
-  height: 110%;
-  background-color: chartreuse;
-  bottom: 0;
+#connect-game .game-wrapper {
+  width: 60%;
+  height: 100%;
+  background-color: burlywood;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+#game-pieces {
+  width: 668px;
+  height: 90px;
+  background-color: cadetblue;
   position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
+  top: -90px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#game-pieces div {
+  width: 77px;
+  height: 77px;
+  position: relative;
+}
+
+#game-pieces div div {
+  position: absolute;
+}
+
+#game-pieces div .playerOne {
+  z-index: 1;
+  opacity: 0;
+}
+
+#game-pieces div .playerOne:hover {
+  opacity: .6;
+}
+
+#game-pieces div .playerTwo {
+  z-index: 2;
+  opacity: 0;
+}
+
+#game-pieces div .playerTwo:hover {
+  opacity: .6;
+}
+
+#game-pieces div span {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#game-pieces div span.blue {
+  background-color: blue;
+}
+
+#game-pieces div span.red {
+  background-color: red;
+}
+
+#board {
+  width: 668px;
+  height: 688px;
+  background-color: chartreuse;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  bottom: 0;
+}
+
+#board #blocker {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 0;
+  background-color: rebeccapurple;
+}
+
+#board .column {
+  width: 11.5%;
+  height: 96%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  z-index: 3;
+}
+
+#board .column .slots {
+  width: 77px;
+  height: 77px;
+  background-color: darkmagenta;
+  border-radius: 50%;
+}
+
+#board .column .pieces {
+  width: 77px;
+  height: 77px;
+}
+
+#board .column .pieces div {
+  position: absolute;
+  width: inherit;
+  height: inherit;
+}
+
+#board .column .pieces .playerOne {
+  z-index: 1;
+  opacity: 0;
+}
+
+#board .column .pieces .playerOne:hover {
+  opacity: .6;
+}
+
+#board .column .pieces .playerTwo {
+  z-index: 2;
+  opacity: 0;
+}
+
+#board .column .pieces .playerTwo:hover {
+  opacity: .6;
+}
+
+#board .column .pieces span {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+#board .column .pieces span.blue {
+  background-color: blue;
+}
+
+#board .column .pieces span.red {
+  background-color: red;
 }
 /*# sourceMappingURL=main.css.map */
