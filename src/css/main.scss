@@ -207,7 +207,6 @@ main {
         // background-color: darkgoldenrod;
         @include flexBox(column);
         @include align(space-between, flex-start);
-        z-index: 3;
 
         .slots {
             width: 77px;
@@ -219,6 +218,7 @@ main {
         .pieces {
             width: 77px;
             height: 77px;
+            z-index: 3;
 
             div {
                 position: absolute;
@@ -226,23 +226,6 @@ main {
                 height: inherit;
             }
     
-            .playerOne {
-                z-index: 1;
-                opacity: 0;
-    
-                &:hover {
-                    opacity: .6;
-                }
-            }
-    
-            .playerTwo {
-                z-index: 2;
-                opacity: 0;
-    
-                &:hover {
-                    opacity: .6;
-                }
-            }
             
             span {
                 display: block;
@@ -250,6 +233,13 @@ main {
                 width: 100%;
                 height: 100%;
                 border-radius: 50%;
+                opacity: 0;
+                top: 0;
+                transition: top .2s linear, opacity .1s linear;
+
+                &:hover {
+                    opacity: .6;
+                }
     
                 &.blue {
                     background-color: blue;

@@ -282,7 +282,6 @@ main {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
-  z-index: 3;
 }
 
 #board .column .slots {
@@ -295,6 +294,7 @@ main {
 #board .column .pieces {
   width: 77px;
   height: 77px;
+  z-index: 3;
 }
 
 #board .column .pieces div {
@@ -303,30 +303,20 @@ main {
   height: inherit;
 }
 
-#board .column .pieces .playerOne {
-  z-index: 1;
-  opacity: 0;
-}
-
-#board .column .pieces .playerOne:hover {
-  opacity: .6;
-}
-
-#board .column .pieces .playerTwo {
-  z-index: 2;
-  opacity: 0;
-}
-
-#board .column .pieces .playerTwo:hover {
-  opacity: .6;
-}
-
 #board .column .pieces span {
   display: block;
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  opacity: 0;
+  top: 0;
+  -webkit-transition: top .2s linear, opacity .1s linear;
+  transition: top .2s linear, opacity .1s linear;
+}
+
+#board .column .pieces span:hover {
+  opacity: .6;
 }
 
 #board .column .pieces span.blue {
