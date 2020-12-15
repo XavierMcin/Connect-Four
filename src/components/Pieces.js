@@ -1,17 +1,18 @@
 import React from 'react';
 
 
-function Pieces() {
+function Pieces(props) {
+
     return (
         <div className="pieces">
 
             <div className="playerOne">
-                <span className="red up"></span>
-                <span className="red up"></span>
-                <span className="red up"></span>
-                <span className="red up"></span>
-                <span className="red up"></span>
-                <span className="red up"></span>
+                <span className="red up" top={props.emptyCell}></span>
+                <span className="red up" top={props.emptyCell}></span>
+                <span className="red up" top={props.emptyCell}></span>
+                <span className="red up" top={props.emptyCell}></span>
+                <span className="red up" top={props.emptyCell}></span>
+                <span className="red up" top={props.emptyCell}></span>
             </div>
 
             <div className="playerTwo">

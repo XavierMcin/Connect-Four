@@ -8,7 +8,7 @@ class Board extends React.Component {
         super();
         this.state = {
             currentColumn: "",
-            vertical: "",
+            vertical: 0,
             playerTurn: true,
             currentPiece: "",
             piecePosition: ""
@@ -22,10 +22,11 @@ class Board extends React.Component {
         this.switchPlayer = this.switchPlayer.bind(this);
     }
 
-
     findColumn(elem) {
         this.setState({
-            currentColumn: elem.currentTarget.childNodes
+            currentColumn: Array.from(elem.currentTarget.childNodes)
+        }, () => {
+            this.vertical = this.state.currentColumn;
         });
     }
 
@@ -41,6 +42,7 @@ class Board extends React.Component {
                 }
                 i--;
             }
+            // console.log(this.state.currentColumn[1]);
         }
     }
 
@@ -53,24 +55,40 @@ class Board extends React.Component {
     findVertical(elem) {
         let position = elem.getBoundingClientRect();
         this.setState({
-            vertical: position.top
+            vertical: position.top - 77
+        }, () => {
+            // console.log(this.state.vertical);
         });
     }
 
     switchPlayer(elem) {
-        this.setState({
-            playerTurn: !this.state.playerTurn
-        });
-        let oneTurn = elem.currentTarget.firstChild.firstChild;
-        let twoTurn = elem.currentTarget.firstChild.lastChild;
+        // let tester = elem.currentTarget.parentElement.children[1].firstChild.firstChild;
+        // let oneTurn = elem.currentTarget.firstChild.firstChild;
+        // let twoTurn = elem.currentTarget.firstChild.lastChild;
         if (this.state.playerTurn === true) {
-            oneTurn.style.zIndex = 1;
-            twoTurn.style.zIndex = 0;
+            for(let i = 1; i < 8; i++) {
+                let oneTurn = elem.currentTarget.parentElement.children[i].firstChild.firstChild;
+                let twoTurn = elem.currentTarget.parentElement.children[i].firstChild.lastChild;
+                oneTurn.style.zIndex = 0;
+                twoTurn.style.zIndex = 1;
+            }
+
+            this.setState({
+                playerTurn: !this.state.playerTurn
+            });
         } else {
-            oneTurn.style.zIndex = 0;
-            twoTurn.style.zIndex = 1;
+            for(let i = 1; i < 8; i++) {
+                let oneTurn = elem.currentTarget.parentElement.children[i].firstChild.firstChild;
+                let twoTurn = elem.currentTarget.parentElement.children[i].firstChild.lastChild;
+                oneTurn.style.zIndex = 1;
+                twoTurn.style.zIndex = 0;
+            }
+
+            this.setState({
+                playerTurn: !this.state.playerTurn
+            });
         }
-        console.log(elem);
+        // console.log(tester);
     }
 
     movePiece(elem) {
@@ -78,11 +96,12 @@ class Board extends React.Component {
             let onePiece = elem.currentTarget.firstChild.firstChild.childNodes;
             let pieceLength = onePiece.length - 1;
             let i = 0;
+
             while (i < pieceLength) {
                 if (onePiece[pieceLength].className.includes('up')) {
                     onePiece[pieceLength].classList.remove('up');
                     onePiece[pieceLength].classList.add('down');
-                    onePiece[pieceLength].style.top = (this.state.position) + 'px';
+                    onePiece[pieceLength].style.top = (this.state.vertical) + 'px';
                     onePiece[pieceLength].style.opacity = 1;
                     break;
                 }
@@ -110,6 +129,8 @@ class Board extends React.Component {
     onHovers(elem) {
         this.findColumn(elem);
         this.findEmpty();
+        // console.log(this.state.currentColumn);
+        // console.log(this.state.vertical);
     }
 
     clicker(elem) {
@@ -120,9 +141,7 @@ class Board extends React.Component {
 
     render() {
 
-        let slots = new Array(7).fill(1).map((curr, index) => <Column key={index} number={index + 1} hovers={this.onHovers} clicks={this.clicker}/>);
-
-
+        let slots = new Array(7).fill(1).map((curr, index) => <Column key={index} number={index + 1} hovers={this.onHovers} clicks={this.clicker} topper={this.state.vertical}/>);
 
         return (
             <div className="game-wrapper">
