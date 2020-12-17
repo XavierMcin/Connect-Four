@@ -10,55 +10,72 @@ class Board extends React.Component {
             currentColumn: "",
             vertical: 0,
             playerTurn: true,
-            currentPiece: "",
+            currentSpot: "",
             piecePosition: ""
         }
         this.findColumn = this.findColumn.bind(this);
         this.clicker = this.clicker.bind(this);
-        this.findPiece = this.findPiece.bind(this);
+        this.findSpot = this.findSpot.bind(this);
         this.findVertical = this.findVertical.bind(this);
         this.onHovers = this.onHovers.bind(this);
         this.movePiece = this.movePiece.bind(this);
         this.switchPlayer = this.switchPlayer.bind(this);
     }
 
+    
+
     findColumn(elem) {
-        this.setState({
-            currentColumn: Array.from(elem.currentTarget.childNodes)
-        }, () => {
-            this.vertical = this.state.currentColumn;
-        });
+        // this.setState({
+        //     currentColumn: elem.currentTarget
+        // }, () => {
+        //     this.vertical = this.state.currentColumn;
+        // });
+        let activeColumn;
+        activeColumn = Array.from(elem.currentTarget.children);
+        
+        let emptyCell = this.findEmpty(activeColumn);
+        // console.log(activeColumn);
+        return [activeColumn,emptyCell];
     }
 
-    findEmpty() {
-        if (this.state.currentColumn !== undefined) {
-            let i = this.state.currentColumn.length - 1;
+    findEmpty(column) {
+        let activeElement,
+            elementPosition;
+        if (column !== undefined) {
+            let i = column.length - 1;
             let j = 0;
             while (i >= j) {
-                if (this.state.currentColumn[i].className.includes('empty')) {
-                    this.findPiece(this.state.currentColumn[i]);
-                    this.findVertical(this.state.currentColumn[i]);
+                if (column[i].className.includes('empty')) {
+                    activeElement = this.findSpot(column[i]);
+                    elementPosition = this.findVertical(column[i]);
+                    break;
+                } else if (i < 1 && column[i].className.includes('empty') === false) {
+                    activeElement = false;
+                    elementPosition = false;
                     break;
                 }
                 i--;
             }
-            // console.log(this.state.currentColumn[1]);
+            return [activeElement,elementPosition];
         }
     }
 
-    findPiece(elem) {
-        this.setState({
-            currentPiece: elem
-        });
+    findSpot(elem) {
+        // this.setState({
+        //     currentSpot: elem
+        // });
+        return elem;
     }
 
     findVertical(elem) {
         let position = elem.getBoundingClientRect();
-        this.setState({
-            vertical: position.top - 77
-        }, () => {
-            // console.log(this.state.vertical);
-        });
+
+        return position.top;
+        // this.setState({
+        //     vertical: position.top - 77
+        // }, () => {
+        //     // console.log(this.state.vertical);
+        // });
     }
 
     switchPlayer(elem) {
@@ -91,7 +108,13 @@ class Board extends React.Component {
         // console.log(tester);
     }
 
+    
+
     movePiece(elem) {
+        let holder = this.findColumn(elem),
+            holderSpot = holder[1][0],
+            holderPosition = holder[1][1];
+            console.log(holderPosition);
         if (this.state.playerTurn === true) {
             let onePiece = elem.currentTarget.firstChild.firstChild.childNodes;
             let pieceLength = onePiece.length - 1;
@@ -101,7 +124,7 @@ class Board extends React.Component {
                 if (onePiece[pieceLength].className.includes('up')) {
                     onePiece[pieceLength].classList.remove('up');
                     onePiece[pieceLength].classList.add('down');
-                    onePiece[pieceLength].style.top = (this.state.vertical) + 'px';
+                    onePiece[pieceLength].style.top = (holderPosition - 77) + 'px';
                     onePiece[pieceLength].style.opacity = 1;
                     break;
                 }
@@ -115,21 +138,19 @@ class Board extends React.Component {
                 if (twoPiece[pieceLengthTwo].className.includes('up')) {
                     twoPiece[pieceLengthTwo].classList.remove('up');
                     twoPiece[pieceLengthTwo].classList.add('down');
-                    twoPiece[pieceLengthTwo].style.top = (this.state.position) + 'px';
+                    twoPiece[pieceLengthTwo].style.top = (holderPosition - 77) + 'px';
                     twoPiece[pieceLengthTwo].style.opacity = 1;
                     break;
                 }
                 pieceLengthTwo--;
             }
         }
-        // this.state.currentPiece.classList.remove('empty');
-        // this.state.currentPiece.classList.add('taken');
+        holderSpot.classList.remove('empty');
+        holderSpot.classList.add('taken');
     }
 
     onHovers(elem) {
         this.findColumn(elem);
-        this.findEmpty();
-        // console.log(this.state.currentColumn);
         // console.log(this.state.vertical);
     }
 
