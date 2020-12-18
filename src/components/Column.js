@@ -5,7 +5,7 @@ import Pieces from './Pieces';
 function Column(props) {
 
     return (
-        <div className={"column col-" + props.number.toString()} onMouseEnter={props.hovers} onClick={props.clicks}>
+        <div className={"column col-" + props.number.toString()} onClick={props.clicks}>
 
             <Pieces emptyCell={props.toppers}/>
             <div className="slots empty"></div>
