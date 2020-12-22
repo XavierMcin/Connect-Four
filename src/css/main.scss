@@ -204,6 +204,7 @@ main {
     .column {
         width: 11.5%;
         height: 96%;
+        position: relative;
         // background-color: darkgoldenrod;
         @include flexBox(column);
         @include align(space-between, flex-start);

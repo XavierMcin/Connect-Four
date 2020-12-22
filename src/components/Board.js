@@ -1,7 +1,13 @@
 import React from 'react';
 import Column from './Column';
 
-
+let twoBoard = [[0,0,0,0,0,0],
+                [0,0,0,0,0,0],
+                [0,0,0,0,0,0],
+                [0,0,0,0,0,0],
+                [0,0,0,0,0,0],
+                [0,0,0,0,0,0],
+                [0,0,0,0,0,0]];
 
 class Board extends React.Component {
     constructor() {
@@ -55,21 +61,15 @@ class Board extends React.Component {
     }
 
     findSpot(elem) {
-        // this.setState({
-        //     currentSpot: elem
-        // });
-        return elem;
+        let columnKey = elem.parentElement.dataset.column;
+        let slotKey = elem.dataset.key;
+
+        return [elem,columnKey,slotKey];
     }
 
     findVertical(elem) {
-        let position = elem.getBoundingClientRect();
-        console.log(elem.parentElement.offsetHeight);
-        return position.top;
-        // this.setState({
-        //     vertical: position.top - 77
-        // }, () => {
-        //     // console.log(this.state.vertical);
-        // });
+        let position = elem.offsetTop;
+        return position;
     }
 
     switchPlayer(elem) {
@@ -108,17 +108,22 @@ class Board extends React.Component {
         // console.log(tester);
     }
 
-    
+
 
     movePiece(elem) {
+
         let holder = this.findColumn(elem),
-            holderSpot = holder[1][0],
-            holderPosition = holder[1][1];
+            holderSpot = holder[1][0][0],
+            holderPosition = holder[1][1],
+            holderColumn = parseInt(holder[1][0][1]) - 1,
+            holderTaken = parseInt(holder[1][0][2]) - 1;
             
-        if (holderSpot === false && holderPosition === false) {
+            
+        if (holderPosition === false) {
             return null;
         } else {
             if (this.state.playerTurn === true) {
+                twoBoard[holderColumn][holderTaken] = 1;
                 let onePiece = elem.currentTarget.firstChild.firstChild.childNodes;
                 let pieceLength = onePiece.length - 1;
                 let i = 0;
@@ -127,13 +132,14 @@ class Board extends React.Component {
                     if (onePiece[pieceLength].className.includes('up')) {
                         onePiece[pieceLength].classList.remove('up');
                         onePiece[pieceLength].classList.add('down');
-                        onePiece[pieceLength].style.top = (holderPosition - 77) + 'px';
+                        onePiece[pieceLength].style.top = (holderPosition) + 'px';
                         onePiece[pieceLength].style.opacity = 1;
                         break;
                     }
                     pieceLength--;
                 }
             } else {
+                twoBoard[holderColumn][holderTaken] = 2;
                 let twoPiece = elem.currentTarget.firstChild.lastChild.childNodes;
                 let pieceLengthTwo = twoPiece.length - 1;
                 let i = 0;
@@ -141,7 +147,7 @@ class Board extends React.Component {
                     if (twoPiece[pieceLengthTwo].className.includes('up')) {
                         twoPiece[pieceLengthTwo].classList.remove('up');
                         twoPiece[pieceLengthTwo].classList.add('down');
-                        twoPiece[pieceLengthTwo].style.top = (holderPosition - 77) + 'px';
+                        twoPiece[pieceLengthTwo].style.top = (holderPosition) + 'px';
                         twoPiece[pieceLengthTwo].style.opacity = 1;
                         break;
                     }
@@ -151,13 +157,14 @@ class Board extends React.Component {
             holderSpot.classList.remove('empty');
             holderSpot.classList.add('taken');
         }
-    }
 
-    
+    }
 
     clicker(elem) {
         this.switchPlayer(elem);
         this.movePiece(elem);
+        // this.checkWinner(elem);
+        console.log(twoBoard);
     }
 
 

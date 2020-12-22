@@ -269,6 +269,7 @@ main {
 #board .column {
   width: 11.5%;
   height: 96%;
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
