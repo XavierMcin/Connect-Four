@@ -108,6 +108,63 @@ class Board extends React.Component {
         // console.log(tester);
     }
 
+    checkVertical(arr) {
+
+        let vertCheck = arr.map((curr,index) => {
+
+            let red = 0,
+                blue = 0;
+
+            for (let i = 0; i < curr.length; i++) {
+                if (curr[i] === 1 && blue === 0) {
+                    red++;
+                } else if (curr[i] === 2 && red === 0) {
+                    blue++;
+                } else if (curr[i] === 1 && blue > 0) {
+                    blue = 0;
+                    red++;
+                } else if (curr[i] === 2 && red > 0) {
+                    red = 0;
+                    blue++;
+                }
+            }
+
+            if (red === 4) {return 'redWin';}
+            else if (blue === 4) {return 'blueWin';}
+            else {return null;}
+
+        });
+        // console.log(vertCheck);
+    }
+
+    checkHorizontal(arr) {
+
+        let horiArr = [];
+
+        for (let i = 0; i < arr.length; i++) {
+            let horiRed = 0,
+                horiBlue = 0;
+            for (let x = 0; x < arr[i].length; x++) {
+
+                if (arr[x][i] === 1 && horiBlue === 0) {
+                    horiRed++;
+                } else if (arr[x][i] === 2 && horiRed === 0) {
+                    horiBlue++;
+                } else if (arr[x][i] === 1 && horiBlue > 0) {
+                    horiBlue = 0;
+                    horiRed++;
+                } else if (arr[x][i] === 2 && horiRed > 0) {
+                    horiRed = 0;
+                    horiBlue++;
+                }
+
+            }
+            if (horiRed === 4) {horiArr.push('redWin');}
+            else if (horiBlue === 4) {horiArr.push('blueWin');}
+        }
+        console.log(horiArr);
+    }
+
 
 
     movePiece(elem) {
@@ -163,7 +220,8 @@ class Board extends React.Component {
     clicker(elem) {
         this.switchPlayer(elem);
         this.movePiece(elem);
-        // this.checkWinner(elem);
+        // this.checkVertical(twoBoard);
+        // this.checkHorizontal(twoBoard);
         console.log(twoBoard);
     }
 
