@@ -165,7 +165,128 @@ class Board extends React.Component {
         console.log(horiArr);
     }
 
+    checkLeftDiagonal(arr) {
 
+        let diaArr = [],
+            bottom = 5;
+
+        for (let i = 0; i < 4;i++) {
+
+            if (i === 0) {
+                for (let x = 3; x < arr[i].length; x++) {
+                    let diaHold = x,
+                        diaInc = x,
+                        diaRed = 0,
+                        diaBlue = 0;
+                    for (let y = 0; y <= diaHold; y++) {
+
+                        if (arr[y][diaInc] === 1 && diaBlue === 0) {
+                            diaRed++;
+                        } else if (arr[y][diaInc] === 2 && diaRed === 0) {
+                            diaBlue++;
+                        } else if (arr[y][diaInc] === 1 && diaBlue > 0) {
+                            diaBlue = 0;
+                            diaRed++;
+                        } else if (arr[y][diaInc] === 2 && diaRed > 0) {
+                            diaRed = 0;
+                            diaBlue++;
+                        }
+
+                        diaInc--;
+                    }
+                    if (diaRed === 4) {diaArr.push('redWin');}
+                    else if (diaBlue === 4) {diaArr.push('blueWin');}
+                }
+            } else {
+                let diaInc = bottom,
+                diaRed = 0,
+                diaBlue = 0;
+                for (let y = i; y < arr.length; y++) {
+
+                    if (arr[y][diaInc] === 1 && diaBlue === 0) {
+                        diaRed++;
+                    } else if (arr[y][diaInc] === 2 && diaRed === 0) {
+                        diaBlue++;
+                    } else if (arr[y][diaInc] === 1 && diaBlue > 0) {
+                        diaBlue = 0;
+                        diaRed++;
+                    } else if (arr[y][diaInc] === 2 && diaRed > 0) {
+                        diaRed = 0;
+                        diaBlue++;
+                    }
+
+                    diaInc--;
+                }
+                if (diaRed === 4) {diaArr.push('redWin');}
+                else if (diaBlue === 4) {diaArr.push('blueWin');}
+            }
+
+            
+        }
+        console.log(diaArr);
+    }
+
+    checkRightDiagonal(arr) {
+
+        let diaArr = [],
+            bottom = 5,
+            rightBlock = 3;
+
+        for (let i = 6; i > 2; i--) {
+
+            if (i === 6) {
+                for (let x = 3; x < arr[i].length; x++) {
+                    let diaInc = x,
+                        diaRed = 0,
+                        diaBlue = 0;
+                    for (let y = 6; y >= rightBlock; y--) {
+
+                        if (arr[y][diaInc] === 1 && diaBlue === 0) {
+                            diaRed++;
+                        } else if (arr[y][diaInc] === 2 && diaRed === 0) {
+                            diaBlue++;
+                        } else if (arr[y][diaInc] === 1 && diaBlue > 0) {
+                            diaBlue = 0;
+                            diaRed++;
+                        } else if (arr[y][diaInc] === 2 && diaRed > 0) {
+                            diaRed = 0;
+                            diaBlue++;
+                        }
+
+                        diaInc--;
+                    }
+                    rightBlock--;
+                    if (diaRed === 4) {diaArr.push('redWin');}
+                    else if (diaBlue === 4) {diaArr.push('blueWin');}
+                }
+            } else {
+
+                let diaInc = bottom,
+                diaRed = 0,
+                diaBlue = 0;
+                for (let y = i; y >= 0; y--) {
+
+                    if (arr[y][diaInc] === 1 && diaBlue === 0) {
+                        diaRed++;
+                    } else if (arr[y][diaInc] === 2 && diaRed === 0) {
+                        diaBlue++;
+                    } else if (arr[y][diaInc] === 1 && diaBlue > 0) {
+                        diaBlue = 0;
+                        diaRed++;
+                    } else if (arr[y][diaInc] === 2 && diaRed > 0) {
+                        diaRed = 0;
+                        diaBlue++;
+                    }
+
+                    diaInc--;
+                }
+                if (diaRed === 4) {diaArr.push('redWin');}
+                else if (diaBlue === 4) {diaArr.push('blueWin');}
+            }
+            
+        }
+        console.log(diaArr);
+    }
 
     movePiece(elem) {
 
@@ -222,6 +343,7 @@ class Board extends React.Component {
         this.movePiece(elem);
         // this.checkVertical(twoBoard);
         // this.checkHorizontal(twoBoard);
+        this.checkRightDiagonal(twoBoard);
         console.log(twoBoard);
     }
 
