@@ -134,17 +134,25 @@ class Board extends React.Component {
             else {return null;}
 
         });
-        // console.log(vertCheck);
+        if (vertCheck.includes('redWin')) {
+            let x = vertCheck.indexOf('redWin');
+            return vertCheck[x];
+        } else if (vertCheck.includes('blueWin')) {
+            let x = vertCheck.indexOf('blueWin');
+            return vertCheck[x];
+        } else {
+            return vertCheck;
+        }
     }
 
     checkHorizontal(arr) {
 
         let horiArr = [];
 
-        for (let i = 0; i < arr.length; i++) {
+        for (let i = 0; i < arr[0].length; i++) {
             let horiRed = 0,
                 horiBlue = 0;
-            for (let x = 0; x < arr[i].length; x++) {
+            for (let x = 0; x < arr.length; x++) {
 
                 if (arr[x][i] === 1 && horiBlue === 0) {
                     horiRed++;
@@ -159,10 +167,10 @@ class Board extends React.Component {
                 }
 
             }
-            if (horiRed === 4) {horiArr.push('redWin');}
-            else if (horiBlue === 4) {horiArr.push('blueWin');}
+            if (horiRed === 4) {horiArr.push('redWin'); break;}
+            else if (horiBlue === 4) {horiArr.push('blueWin'); break;}
         }
-        console.log(horiArr);
+        return horiArr[0];
     }
 
     checkLeftDiagonal(arr) {
@@ -194,8 +202,8 @@ class Board extends React.Component {
 
                         diaInc--;
                     }
-                    if (diaRed === 4) {diaArr.push('redWin');}
-                    else if (diaBlue === 4) {diaArr.push('blueWin');}
+                    if (diaRed === 4) {diaArr.push('redWin'); break;}
+                    else if (diaBlue === 4) {diaArr.push('blueWin'); break;}
                 }
             } else {
                 let diaInc = bottom,
@@ -217,13 +225,13 @@ class Board extends React.Component {
 
                     diaInc--;
                 }
-                if (diaRed === 4) {diaArr.push('redWin');}
-                else if (diaBlue === 4) {diaArr.push('blueWin');}
+                if (diaRed === 4) {diaArr.push('redWin'); break;}
+                else if (diaBlue === 4) {diaArr.push('blueWin'); break;}
             }
 
             
         }
-        console.log(diaArr);
+        return diaArr[0];
     }
 
     checkRightDiagonal(arr) {
@@ -256,8 +264,8 @@ class Board extends React.Component {
                         diaInc--;
                     }
                     rightBlock--;
-                    if (diaRed === 4) {diaArr.push('redWin');}
-                    else if (diaBlue === 4) {diaArr.push('blueWin');}
+                    if (diaRed === 4) {diaArr.push('redWin'); break;}
+                    else if (diaBlue === 4) {diaArr.push('blueWin'); break;}
                 }
             } else {
 
@@ -280,12 +288,24 @@ class Board extends React.Component {
 
                     diaInc--;
                 }
-                if (diaRed === 4) {diaArr.push('redWin');}
-                else if (diaBlue === 4) {diaArr.push('blueWin');}
+                if (diaRed === 4) {diaArr.push('redWin'); break;}
+                else if (diaBlue === 4) {diaArr.push('blueWin'); break;}
             }
             
         }
-        console.log(diaArr);
+        return diaArr[0];
+    }
+
+    checkWinner(arr) {
+        let vertWin = this.checkVertical(arr);
+        let horiWin = this.checkHorizontal(arr);
+        let lWin = this.checkLeftDiagonal(arr);
+        let rWin = this.checkRightDiagonal(arr);
+        if (vertWin === 'blueWin' || vertWin === 'redWin') {return vertWin}
+        else if (horiWin === 'blueWin' || horiWin === 'redWin') {return horiWin}
+        else if (lWin === 'blueWin' || lWin === 'redWin') {return lWin}
+        else if (rWin === 'blueWin' || rWin === 'redWin') {return rWin}
+        else {return null}
     }
 
     movePiece(elem) {
@@ -341,10 +361,9 @@ class Board extends React.Component {
     clicker(elem) {
         this.switchPlayer(elem);
         this.movePiece(elem);
-        // this.checkVertical(twoBoard);
-        // this.checkHorizontal(twoBoard);
-        this.checkRightDiagonal(twoBoard);
-        console.log(twoBoard);
+        let final = this.checkWinner(twoBoard);
+        if (final === 'redWin') {setTimeout(() => {alert('Red Wins The Game!')},300)}
+        else if (final === 'blueWin') {setTimeout(() => {alert('Blue Wins The Game!')},300)}
     }
 
 
