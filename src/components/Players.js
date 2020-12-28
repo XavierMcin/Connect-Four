@@ -5,28 +5,31 @@ class Players extends React.Component {
     constructor() {
         super();
         this.state = {
-            playerOne: "",
-            playerTwo: "",
+            playerOne: "Player One",
+            playerTwo: "Player Two",
             oneRecord: "0 - 0",
             twoRecord: "0 - 0"
         }
     }
 
     playerNames() {
-        let name1 = prompt('Enter Player One Name');
-        let name2 = prompt('Enter Player Two Name');
-        this.setState({
-            playerOne: name1,
-            playerTwo: name2
-        })
+        setTimeout(() => {
+            let name1 = prompt('Enter Player One Name');
+            let name2 = prompt('Enter Player Two Name');
+
+            this.setState({
+                playerOne: name1,
+                playerTwo: name2
+            })
+        },1000);
     }
 
 
     render() {
 
 
-        // if ((this.state.playerOne.length) === 0 ) {
-        //     this.playerNames()
+        // if (this.state.playerOne === 'Player One') {
+        //     this.playerNames();
         // }
 
 

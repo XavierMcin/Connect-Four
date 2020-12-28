@@ -7,7 +7,7 @@ html, body {
 main {
   width: 100vw;
   height: 100vh;
-  background-color: lightgray;
+  background-color: #287CD6;
 }
 
 /*******************/
@@ -16,7 +16,6 @@ main {
 #player-info {
   width: 100%;
   height: 23%;
-  background-color: darkkhaki;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -35,7 +34,7 @@ main {
 #player-info .player {
   width: 20%;
   height: 100%;
-  background-color: darkorchid;
+  background-color: #7F86E0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -48,7 +47,7 @@ main {
 #player-info .player div {
   width: 85%;
   height: 50%;
-  background-color: deeppink;
+  background-color: #142738;
   margin-bottom: 20px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -67,7 +66,7 @@ main {
 
 #player-info .player div h2 {
   margin: 0;
-  font-size: 2.5em;
+  font-size: 2rem;
   text-transform: uppercase;
   text-align: center;
 }
@@ -76,7 +75,7 @@ main {
   display: block;
   width: 18%;
   height: 13%;
-  background-color: gold;
+  background-color: #142487;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -102,7 +101,7 @@ main {
 }
 
 #player-info .player1 div, #player-info .player1 span {
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 5px 5px 0;
 }
 
 #player-info .player2 {
@@ -115,7 +114,7 @@ main {
 }
 
 #player-info .player2 div, #player-info .player2 span {
-  border-radius: 10px 0 0 10px;
+  border-radius: 5px 0 0 5px;
 }
 
 #player-info .banner {
@@ -129,7 +128,6 @@ main {
 #connect-game {
   width: 100%;
   height: 77%;
-  background-color: indianred;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -149,13 +147,62 @@ main {
 #connect-game .left, #connect-game .right {
   width: 20%;
   height: 100%;
-  background-color: brown;
+}
+
+#connect-game .left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+#connect-game .left div {
+  width: 100%;
+  height: 100%;
+  background-color: orange;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#connect-game .left div button {
+  font-size: 3rem;
+  margin-bottom: .83em;
+}
+
+#connect-game .left div h2 {
+  font-size: 3rem;
+  margin-top: 0;
+}
+
+#connect-game .right div {
+  width: 100%;
+  height: 100%;
+  background-color: orange;
 }
 
 #connect-game .game-wrapper {
   width: 60%;
   height: 100%;
-  background-color: burlywood;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -239,7 +286,7 @@ main {
 #board {
   width: 668px;
   height: 688px;
-  background-color: chartreuse;
+  background-color: #142738;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -263,7 +310,7 @@ main {
   width: 100%;
   height: 100px;
   z-index: 0;
-  background-color: rebeccapurple;
+  background-color: #287CD6;
 }
 
 #board .column {
@@ -288,7 +335,7 @@ main {
 #board .column .slots {
   width: 77px;
   height: 77px;
-  background-color: darkmagenta;
+  background-color: #287CD6;
   border-radius: 50%;
 }
 

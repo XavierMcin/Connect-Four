@@ -14,11 +14,33 @@ class Game extends React.Component {
         return (
             <section id="connect-game">
 
-                <div className="left"></div>
+                <div className="left">
+
+                    <div>
+
+                        <button>New Game</button>
+                        <h2>About</h2>
+                        <h2>GitHub</h2>
+
+                    </div>
+
+                </div>
 
                 <Board />
 
-                <div className="right"></div>
+                <div className="right">
+
+                    <div>
+
+                        <div className="rematch">
+                            <h2>Rematch ?</h2>
+                            <button>Yes</button>
+                            <button>No</button>
+                        </div>
+
+                    </div>
+
+                </div>
 
             </section>
         )

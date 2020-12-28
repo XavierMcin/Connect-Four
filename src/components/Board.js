@@ -116,6 +116,8 @@ class Board extends React.Component {
                 blue = 0;
 
             for (let i = 0; i < curr.length; i++) {
+                if (red === 4 || blue === 4) {break;}
+
                 if (curr[i] === 1 && blue === 0) {
                     red++;
                 } else if (curr[i] === 2 && red === 0) {
@@ -154,6 +156,8 @@ class Board extends React.Component {
                 horiBlue = 0;
             for (let x = 0; x < arr.length; x++) {
 
+                if (horiRed === 4 || horiBlue === 4) {break;}
+
                 if (arr[x][i] === 1 && horiBlue === 0) {
                     horiRed++;
                 } else if (arr[x][i] === 2 && horiRed === 0) {
@@ -178,7 +182,7 @@ class Board extends React.Component {
         let diaArr = [],
             bottom = 5;
 
-        for (let i = 0; i < 4;i++) {
+        for (let i = 0; i < 4; i++) {
 
             if (i === 0) {
                 for (let x = 3; x < arr[i].length; x++) {
@@ -187,6 +191,8 @@ class Board extends React.Component {
                         diaRed = 0,
                         diaBlue = 0;
                     for (let y = 0; y <= diaHold; y++) {
+
+                        if (diaRed === 4 || diaBlue === 4) {break;}
 
                         if (arr[y][diaInc] === 1 && diaBlue === 0) {
                             diaRed++;
@@ -210,6 +216,8 @@ class Board extends React.Component {
                 diaRed = 0,
                 diaBlue = 0;
                 for (let y = i; y < arr.length; y++) {
+
+                    if (diaRed === 4 || diaBlue === 4) {break;}
 
                     if (arr[y][diaInc] === 1 && diaBlue === 0) {
                         diaRed++;
@@ -249,6 +257,8 @@ class Board extends React.Component {
                         diaBlue = 0;
                     for (let y = 6; y >= rightBlock; y--) {
 
+                        if (diaRed === 4 || diaBlue === 4) {break;}
+
                         if (arr[y][diaInc] === 1 && diaBlue === 0) {
                             diaRed++;
                         } else if (arr[y][diaInc] === 2 && diaRed === 0) {
@@ -273,6 +283,8 @@ class Board extends React.Component {
                 diaRed = 0,
                 diaBlue = 0;
                 for (let y = i; y >= 0; y--) {
+
+                    if (diaRed === 4 || diaBlue === 4) {break;}
 
                     if (arr[y][diaInc] === 1 && diaBlue === 0) {
                         diaRed++;
@@ -364,6 +376,7 @@ class Board extends React.Component {
         let final = this.checkWinner(twoBoard);
         if (final === 'redWin') {setTimeout(() => {alert('Red Wins The Game!')},300)}
         else if (final === 'blueWin') {setTimeout(() => {alert('Blue Wins The Game!')},300)}
+        console.log(twoBoard);
     }
 
 
