@@ -136,10 +136,32 @@ main {
 
     .right {
 
-        div {
+        & > div {
             width: 100%;
             height: 100%;
             background-color: orange;
+            @include flexBox(row);
+            @include align(flex-start,center);
+
+            .rematch {
+                width: 100%;
+                height: 50%;
+
+                h2 {
+                    font-size: 3rem;
+                    text-align: center
+                }
+
+                div {
+                    @include flexBox(row);
+                    @include align(space-evenly,flex-start);
+
+                    button {
+                        font-size: 3rem;
+                    }
+                }
+            }
+
         }
     }
 

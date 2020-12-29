@@ -34,8 +34,10 @@ class Game extends React.Component {
 
                         <div className="rematch">
                             <h2>Rematch ?</h2>
-                            <button>Yes</button>
-                            <button>No</button>
+                            <div>
+                                <button>Yes</button>
+                                <button>No</button>
+                            </div>
                         </div>
 
                     </div>

@@ -8,6 +8,7 @@ let twoBoard = [[0,0,0,0,0,0],
                 [0,0,0,0,0,0],
                 [0,0,0,0,0,0],
                 [0,0,0,0,0,0]];
+let tie = 0;
 
 class Board extends React.Component {
     constructor() {
@@ -17,7 +18,7 @@ class Board extends React.Component {
             vertical: 0,
             playerTurn: true,
             currentSpot: "",
-            piecePosition: ""
+            piecePosition: "",
         }
         this.findColumn = this.findColumn.bind(this);
         this.clicker = this.clicker.bind(this);
@@ -26,7 +27,6 @@ class Board extends React.Component {
         this.movePiece = this.movePiece.bind(this);
         this.switchPlayer = this.switchPlayer.bind(this);
     }
-
     
 
     findColumn(elem) {
@@ -116,7 +116,7 @@ class Board extends React.Component {
                 blue = 0;
 
             for (let i = 0; i < curr.length; i++) {
-                if (red === 4 || blue === 4) {break;}
+                if (red === 4 || blue === 4) {break}
 
                 if (curr[i] === 1 && blue === 0) {
                     red++;
@@ -156,7 +156,8 @@ class Board extends React.Component {
                 horiBlue = 0;
             for (let x = 0; x < arr.length; x++) {
 
-                if (horiRed === 4 || horiBlue === 4) {break;}
+                if (horiRed === 4 || horiBlue === 4) {break}
+                if (arr[x][i] === 0) {horiRed = 0; horiBlue = 0}
 
                 if (arr[x][i] === 1 && horiBlue === 0) {
                     horiRed++;
@@ -192,7 +193,8 @@ class Board extends React.Component {
                         diaBlue = 0;
                     for (let y = 0; y <= diaHold; y++) {
 
-                        if (diaRed === 4 || diaBlue === 4) {break;}
+                        if (diaRed === 4 || diaBlue === 4) {break}
+                        if (arr[y][diaInc] === 0) {diaRed = 0; diaBlue = 0}
 
                         if (arr[y][diaInc] === 1 && diaBlue === 0) {
                             diaRed++;
@@ -217,7 +219,8 @@ class Board extends React.Component {
                 diaBlue = 0;
                 for (let y = i; y < arr.length; y++) {
 
-                    if (diaRed === 4 || diaBlue === 4) {break;}
+                    if (diaRed === 4 || diaBlue === 4) {break}
+                    if (arr[y][diaInc] === 0) {diaRed = 0; diaBlue = 0}
 
                     if (arr[y][diaInc] === 1 && diaBlue === 0) {
                         diaRed++;
@@ -257,7 +260,8 @@ class Board extends React.Component {
                         diaBlue = 0;
                     for (let y = 6; y >= rightBlock; y--) {
 
-                        if (diaRed === 4 || diaBlue === 4) {break;}
+                        if (diaRed === 4 || diaBlue === 4) {break}
+                        if (arr[y][diaInc] === 0) {diaRed = 0; diaBlue = 0}
 
                         if (arr[y][diaInc] === 1 && diaBlue === 0) {
                             diaRed++;
@@ -284,7 +288,8 @@ class Board extends React.Component {
                 diaBlue = 0;
                 for (let y = i; y >= 0; y--) {
 
-                    if (diaRed === 4 || diaBlue === 4) {break;}
+                    if (diaRed === 4 || diaBlue === 4) {break}
+                    if (arr[y][diaInc] === 0) {diaRed = 0; diaBlue = 0}
 
                     if (arr[y][diaInc] === 1 && diaBlue === 0) {
                         diaRed++;
@@ -317,6 +322,7 @@ class Board extends React.Component {
         else if (horiWin === 'blueWin' || horiWin === 'redWin') {return horiWin}
         else if (lWin === 'blueWin' || lWin === 'redWin') {return lWin}
         else if (rWin === 'blueWin' || rWin === 'redWin') {return rWin}
+        else if (tie === 42) {return "Tie"}
         else {return null}
     }
 
@@ -328,7 +334,7 @@ class Board extends React.Component {
             holderColumn = parseInt(holder[1][0][1]) - 1,
             holderTaken = parseInt(holder[1][0][2]) - 1;
             
-            
+
         if (holderPosition === false) {
             return null;
         } else {
@@ -348,6 +354,7 @@ class Board extends React.Component {
                     }
                     pieceLength--;
                 }
+                if (holder[0].indexOf(holderSpot) === 1) {this.disableBoard(elem)}
             } else {
                 twoBoard[holderColumn][holderTaken] = 2;
                 let twoPiece = elem.currentTarget.firstChild.lastChild.childNodes;
@@ -363,11 +370,35 @@ class Board extends React.Component {
                     }
                     pieceLengthTwo--;
                 }
+                if (holder[0].indexOf(holderSpot) === 1) {this.disableBoard(elem)}
             }
             holderSpot.classList.remove('empty');
             holderSpot.classList.add('taken');
+            tie++;
         }
 
+    }
+
+    disableBoard(elem) {
+        let redPieces = Array.from(elem.currentTarget.firstChild.firstChild.children);
+        let bluePieces = Array.from(elem.currentTarget.firstChild.lastChild.children);
+        let hide = [];
+
+        redPieces.forEach((curr) => {if (curr.className.includes('up')) {hide.push(curr)}});
+        bluePieces.forEach((curr) => {if (curr.className.includes('up')) {hide.push(curr)}});
+
+        hide.forEach((curr) => {curr.style.visibility = 'hidden'});
+    }
+
+    resetBoard() {
+        twoBoard = [[0,0,0,0,0,0],
+                    [0,0,0,0,0,0],
+                    [0,0,0,0,0,0],
+                    [0,0,0,0,0,0],
+                    [0,0,0,0,0,0],
+                    [0,0,0,0,0,0],
+                    [0,0,0,0,0,0]];
+        
     }
 
     clicker(elem) {
@@ -376,7 +407,10 @@ class Board extends React.Component {
         let final = this.checkWinner(twoBoard);
         if (final === 'redWin') {setTimeout(() => {alert('Red Wins The Game!')},300)}
         else if (final === 'blueWin') {setTimeout(() => {alert('Blue Wins The Game!')},300)}
-        console.log(twoBoard);
+        else if (final === 'Tie') {
+            setTimeout(() => {alert('Tie Game!')},300);
+        }
+        
     }
 
 

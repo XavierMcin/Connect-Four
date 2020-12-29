@@ -194,10 +194,53 @@ main {
   margin-top: 0;
 }
 
-#connect-game .right div {
+#connect-game .right > div {
   width: 100%;
   height: 100%;
   background-color: orange;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#connect-game .right > div .rematch {
+  width: 100%;
+  height: 50%;
+}
+
+#connect-game .right > div .rematch h2 {
+  font-size: 3rem;
+  text-align: center;
+}
+
+#connect-game .right > div .rematch div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+#connect-game .right > div .rematch div button {
+  font-size: 3rem;
 }
 
 #connect-game .game-wrapper {
