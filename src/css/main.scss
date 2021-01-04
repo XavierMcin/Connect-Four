@@ -162,6 +162,17 @@ main {
                 }
             }
 
+            .startGame {
+                width: 100%;
+                height: 40%;
+                @include flexBox(row);
+                @include align(center,center);
+
+                button {
+                    font-size: 3rem;
+                }
+            }
+
         }
     }
 
@@ -266,6 +277,10 @@ main {
             background-color: #287CD6;
             border-radius: 50%;
         }
+
+        // .hide {
+        //     visibility: hidden;
+        // }
 
         .pieces {
             width: 77px;

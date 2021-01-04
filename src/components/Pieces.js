@@ -4,7 +4,7 @@ import React from 'react';
 function Pieces(props) {
 
     return (
-        <div className="pieces">
+        <div className="pieces hide">
 
             <div className="playerOne">
                 <span className="red up" top={props.emptyCell}></span>

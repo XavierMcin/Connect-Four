@@ -8,7 +8,10 @@ let twoBoard = [[0,0,0,0,0,0],
                 [0,0,0,0,0,0],
                 [0,0,0,0,0,0],
                 [0,0,0,0,0,0]];
-let tie = 0;
+let tie = 0,
+    stopGame = false,
+    gameHolder;
+
 
 class Board extends React.Component {
     constructor() {
@@ -18,7 +21,7 @@ class Board extends React.Component {
             vertical: 0,
             playerTurn: true,
             currentSpot: "",
-            piecePosition: "",
+            piecePosition: ""
         }
         this.findColumn = this.findColumn.bind(this);
         this.clicker = this.clicker.bind(this);
@@ -391,24 +394,51 @@ class Board extends React.Component {
     }
 
     resetBoard() {
-        twoBoard = [[0,0,0,0,0,0],
-                    [0,0,0,0,0,0],
-                    [0,0,0,0,0,0],
-                    [0,0,0,0,0,0],
-                    [0,0,0,0,0,0],
-                    [0,0,0,0,0,0],
-                    [0,0,0,0,0,0]];
+        // twoBoard = [[0,0,0,0,0,0],
+        //             [0,0,0,0,0,0],
+        //             [0,0,0,0,0,0],
+        //             [0,0,0,0,0,0],
+        //             [0,0,0,0,0,0],
+        //             [0,0,0,0,0,0],
+        //             [0,0,0,0,0,0]];
+
+        let hold = this.props.buttonHold;
+        // console.log(this.props.buttonHold);
+
+        if (this.props.newgame) {
+            console.log('cleared');
+            stopGame = true;
+        };
         
     }
 
+    starter() {
+        if (this.props.starter) {
+            stopGame = false;
+            gameHolder = (this.props.buttonHold).parentElement.parentElement.parentElement.previousSibling;
+        } 
+    }
+
+    stopper() {
+        console.log(gameHolder);
+    }
+
     clicker(elem) {
-        this.switchPlayer(elem);
-        this.movePiece(elem);
-        let final = this.checkWinner(twoBoard);
-        if (final === 'redWin') {setTimeout(() => {alert('Red Wins The Game!')},300)}
-        else if (final === 'blueWin') {setTimeout(() => {alert('Blue Wins The Game!')},300)}
-        else if (final === 'Tie') {
-            setTimeout(() => {alert('Tie Game!')},300);
+        if (!stopGame) {
+            // console.log(this.props.buttonHold);
+            this.switchPlayer(elem);
+            this.movePiece(elem);
+            let final = this.checkWinner(twoBoard);
+            if (final === 'redWin') {
+                setTimeout(() => {alert('Red Wins The Game!')},300);
+                stopGame = true;
+            } else if (final === 'blueWin') {
+                setTimeout(() => {alert('Blue Wins The Game!')},300);
+                stopGame = true;
+            } else if (final === 'Tie') {
+                setTimeout(() => {alert('Tie Game!')},300);
+                stopGame = true;
+            }
         }
         
     }
@@ -417,6 +447,10 @@ class Board extends React.Component {
     render() {
 
         let slots = new Array(7).fill(1).map((curr, index) => <Column key={index} number={index + 1} clicks={this.clicker} topper={this.state.vertical}/>);
+        this.resetBoard();
+        this.starter();
+        this.stopper();
+
 
         return (
             <div className="game-wrapper">
