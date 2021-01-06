@@ -10,24 +10,17 @@ let twoBoard = [[0,0,0,0,0,0],
                 [0,0,0,0,0,0]];
 let tie = 0,
     stopGame = false,
-    gameHolder;
+    gameHolder,
+    playerTurn = true;
 
 
 class Board extends React.Component {
     constructor() {
         super();
         this.state = {
-            currentColumn: "",
-            vertical: 0,
-            playerTurn: true,
-            currentSpot: "",
-            piecePosition: ""
+            playerTurn: true
         }
-        this.findColumn = this.findColumn.bind(this);
         this.clicker = this.clicker.bind(this);
-        this.findSpot = this.findSpot.bind(this);
-        this.findVertical = this.findVertical.bind(this);
-        this.movePiece = this.movePiece.bind(this);
         this.switchPlayer = this.switchPlayer.bind(this);
     }
     
@@ -79,12 +72,12 @@ class Board extends React.Component {
         let holder = this.findColumn(elem),
             holderSpot = holder[1][0],
             holderPosition = holder[1][1];
-            // console.log(holderPosition);
+            // console.log(elem.currentTarget);
 
         if (holderSpot === false && holderPosition === false) {
             return null;
         } else {
-            if (this.state.playerTurn === true) {
+            if (playerTurn) {
                 for(let i = 1; i < 8; i++) {
                     let oneTurn = elem.currentTarget.parentElement.children[i].firstChild.firstChild;
                     let twoTurn = elem.currentTarget.parentElement.children[i].firstChild.lastChild;
@@ -92,9 +85,7 @@ class Board extends React.Component {
                     twoTurn.style.zIndex = 1;
                 }
     
-                this.setState({
-                    playerTurn: !this.state.playerTurn
-                });
+                playerTurn = false;
             } else {
                 for(let i = 1; i < 8; i++) {
                     let oneTurn = elem.currentTarget.parentElement.children[i].firstChild.firstChild;
@@ -103,9 +94,7 @@ class Board extends React.Component {
                     twoTurn.style.zIndex = 0;
                 }
     
-                this.setState({
-                    playerTurn: !this.state.playerTurn
-                });
+                playerTurn = true;
             }
         }
         // console.log(tester);
@@ -336,12 +325,14 @@ class Board extends React.Component {
             holderPosition = holder[1][1],
             holderColumn = parseInt(holder[1][0][1]) - 1,
             holderTaken = parseInt(holder[1][0][2]) - 1;
+
+            console.log(holder);
             
 
         if (holderPosition === false) {
             return null;
         } else {
-            if (this.state.playerTurn === true) {
+            if (playerTurn) {
                 twoBoard[holderColumn][holderTaken] = 1;
                 let onePiece = elem.currentTarget.firstChild.firstChild.childNodes;
                 let pieceLength = onePiece.length - 1;
@@ -352,7 +343,6 @@ class Board extends React.Component {
                         onePiece[pieceLength].classList.remove('up');
                         onePiece[pieceLength].classList.add('down');
                         onePiece[pieceLength].style.top = (holderPosition) + 'px';
-                        onePiece[pieceLength].style.opacity = 1;
                         break;
                     }
                     pieceLength--;
@@ -368,7 +358,6 @@ class Board extends React.Component {
                         twoPiece[pieceLengthTwo].classList.remove('up');
                         twoPiece[pieceLengthTwo].classList.add('down');
                         twoPiece[pieceLengthTwo].style.top = (holderPosition) + 'px';
-                        twoPiece[pieceLengthTwo].style.opacity = 1;
                         break;
                     }
                     pieceLengthTwo--;
@@ -390,24 +379,64 @@ class Board extends React.Component {
         redPieces.forEach((curr) => {if (curr.className.includes('up')) {hide.push(curr)}});
         bluePieces.forEach((curr) => {if (curr.className.includes('up')) {hide.push(curr)}});
 
-        hide.forEach((curr) => {curr.style.visibility = 'hidden'});
+        hide.forEach((curr) => {
+            curr.classList.remove('up');
+            curr.classList.add('hide');
+        });
+        // console.log(hide[1]);
     }
 
     resetBoard() {
-        // twoBoard = [[0,0,0,0,0,0],
-        //             [0,0,0,0,0,0],
-        //             [0,0,0,0,0,0],
-        //             [0,0,0,0,0,0],
-        //             [0,0,0,0,0,0],
-        //             [0,0,0,0,0,0],
-        //             [0,0,0,0,0,0]];
-
-        let hold = this.props.buttonHold;
-        // console.log(this.props.buttonHold);
 
         if (this.props.newgame) {
-            console.log('cleared');
+            twoBoard = [[0,0,0,0,0,0],
+                        [0,0,0,0,0,0],
+                        [0,0,0,0,0,0],
+                        [0,0,0,0,0,0],
+                        [0,0,0,0,0,0],
+                        [0,0,0,0,0,0],
+                        [0,0,0,0,0,0]];
+
+            let sButton = (this.props.buttonHold).parentElement;
+            sButton.classList.remove('block');
             stopGame = true;
+            playerTurn = true;
+
+            gameHolder.forEach((curr) => {
+                if (curr.id === 'blocker') {
+                    return ''
+                } else {
+                    let firstPieces = Array.from(curr.firstChild.firstChild.children),
+                        secondPieces = Array.from(curr.firstChild.lastChild.children),
+                        finalPieces = firstPieces.concat(secondPieces),
+                        slots = Array.from(curr.children);
+
+                    slots.forEach((curr) => {
+                        if (curr.className.includes('slots')) {
+                            finalPieces.push(curr);
+                        }
+                    });
+
+                    finalPieces.forEach((curr) => {
+                        if (curr.className.includes('down')) {
+                            curr.classList.remove('down');
+                            curr.classList.add('up');
+                            curr.style.top = 0 + 'px';
+                        } else if (curr.className.includes('hide')) {
+                            curr.classList.remove('hide');
+                            curr.classList.add('up');
+                        } else if (curr.className.includes('taken')) {
+                            curr.classList.remove('taken');
+                            curr.classList.add('empty');
+                        }
+                    });
+
+                    
+
+                    // console.log(finalPieces);
+                    // console.log(twoBoard);
+                }
+            });
         };
         
     }
@@ -415,29 +444,37 @@ class Board extends React.Component {
     starter() {
         if (this.props.starter) {
             stopGame = false;
-            gameHolder = (this.props.buttonHold).parentElement.parentElement.parentElement.previousSibling;
-        } 
+            gameHolder = Array.from((this.props.buttonHold).parentElement.parentElement.parentElement.previousSibling.firstChild.children);
+            let sButton = (this.props.buttonHold).parentElement;
+            sButton.classList.add('block');
+        } else if (!this.props.starter) {
+            stopGame = true;
+        }
     }
-
-    stopper() {
-        console.log(gameHolder);
-    }
+    
 
     clicker(elem) {
+
         if (!stopGame) {
             // console.log(this.props.buttonHold);
-            this.switchPlayer(elem);
             this.movePiece(elem);
+            this.switchPlayer(elem);
             let final = this.checkWinner(twoBoard);
             if (final === 'redWin') {
+                stopGame = true;
                 setTimeout(() => {alert('Red Wins The Game!')},300);
-                stopGame = true;
+                let rButton = (this.props.buttonHold).parentElement.previousSibling;
+                rButton.classList.remove('block');
             } else if (final === 'blueWin') {
+                stopGame = true;
                 setTimeout(() => {alert('Blue Wins The Game!')},300);
-                stopGame = true;
+                let rButton = (this.props.buttonHold).parentElement.previousSibling;
+                rButton.classList.remove('block');
             } else if (final === 'Tie') {
-                setTimeout(() => {alert('Tie Game!')},300);
                 stopGame = true;
+                setTimeout(() => {alert('Tie Game!')},300);
+                let rButton = (this.props.buttonHold).parentElement.previousSibling;
+                rButton.classList.remove('block');
             }
         }
         
@@ -446,10 +483,10 @@ class Board extends React.Component {
 
     render() {
 
-        let slots = new Array(7).fill(1).map((curr, index) => <Column key={index} number={index + 1} clicks={this.clicker} topper={this.state.vertical}/>);
+        let slots = new Array(7).fill(1).map((curr, index) => <Column key={index} number={index + 1} clicks={this.clicker} topper={this.state.vertical} />);
         this.resetBoard();
         this.starter();
-        this.stopper();
+        
 
 
         return (

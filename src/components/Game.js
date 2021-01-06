@@ -17,17 +17,25 @@ class Game extends React.Component {
 
     clearBoard(elem) {
         let newButton = elem.currentTarget;
+        let rematchButton = (document.getElementsByClassName('rematch'))[0];
+        if (!(rematchButton.className.includes('block'))) {
+            rematchButton.classList.add('block');
+        } 
+
+        console.log(typeof rematchButton);
         
         this.setState({
             start: false,
             newClick: true,
             nButton: newButton
         })
+
     } 
 
     startGame(elem) {
         this.setState({
             start: true,
+            newClick: false,
             bHolder: elem.currentTarget
         })
     }
@@ -59,13 +67,13 @@ class Game extends React.Component {
 
                     <div>
 
-                        {/* <div className="rematch">
+                        <div className="rematch block">
                             <h2>Rematch ?</h2>
                             <div>
                                 <button onClick={this.clearBoard}>Yes</button>
                                 <button>No</button>
                             </div>
-                        </div> */}
+                        </div>
 
                         <div className="startGame">
                             <button onClick={this.startGame}>Start Game</button>

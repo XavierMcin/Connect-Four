@@ -218,6 +218,10 @@ main {
   height: 50%;
 }
 
+#connect-game .right > div .rematch.block {
+  display: none;
+}
+
 #connect-game .right > div .rematch h2 {
   font-size: 3rem;
   text-align: center;
@@ -261,6 +265,10 @@ main {
           align-items: center;
 }
 
+#connect-game .right > div .startGame.block {
+  display: none;
+}
+
 #connect-game .right > div .startGame button {
   font-size: 3rem;
 }
@@ -268,6 +276,7 @@ main {
 #connect-game .game-wrapper {
   width: 60%;
   height: 100%;
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -350,7 +359,7 @@ main {
 
 #board {
   width: 668px;
-  height: 688px;
+  height: 668px;
   background-color: #142738;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -431,8 +440,16 @@ main {
   transition: top .2s linear, opacity .1s linear;
 }
 
-#board .column .pieces span:hover {
+#board .column .pieces span.up:hover {
   opacity: .6;
+}
+
+#board .column .pieces span.down {
+  opacity: 1;
+}
+
+#board .column .pieces span.hide {
+  visibility: hidden;
 }
 
 #board .column .pieces span.blue {
