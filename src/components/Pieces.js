@@ -7,12 +7,12 @@ function Pieces(props) {
         <div className="pieces">
 
             <div className="playerOne">
-                <span className="red up" top={props.emptyCell}></span>
-                <span className="red up" top={props.emptyCell}></span>
-                <span className="red up" top={props.emptyCell}></span>
-                <span className="red up" top={props.emptyCell}></span>
-                <span className="red up" top={props.emptyCell}></span>
-                <span className="red up" top={props.emptyCell}></span>
+                <span className="red up" top={0}></span>
+                <span className="red up" top={0}></span>
+                <span className="red up" top={0}></span>
+                <span className="red up" top={0}></span>
+                <span className="red up" top={0}></span>
+                <span className="red up" top={0}></span>
             </div>
 
             <div className="playerTwo">

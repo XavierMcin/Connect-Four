@@ -11,17 +11,20 @@ let twoBoard = [[0,0,0,0,0,0],
 let tie = 0,
     stopGame = false,
     gameHolder,
-    playerTurn = true;
+    playerTurn = true,
+    redWin = 1,
+    blueWin = 0;
 
 
 class Board extends React.Component {
     constructor() {
         super();
         this.state = {
-            playerTurn: true
+            pTurn: true
         }
         this.clicker = this.clicker.bind(this);
         this.switchPlayer = this.switchPlayer.bind(this);
+        this.resetBoard = this.resetBoard.bind(this);
     }
     
 
@@ -326,7 +329,7 @@ class Board extends React.Component {
             holderColumn = parseInt(holder[1][0][1]) - 1,
             holderTaken = parseInt(holder[1][0][2]) - 1;
 
-            console.log(holder);
+            
             
 
         if (holderPosition === false) {
@@ -397,10 +400,41 @@ class Board extends React.Component {
                         [0,0,0,0,0,0],
                         [0,0,0,0,0,0]];
 
-            let sButton = (this.props.buttonHold).parentElement;
+            let rWinner = document.getElementsByClassName('rWins')[0],
+                bWinner = document.getElementsByClassName('bWins')[0],
+                sButton = (this.props.buttonHold).parentElement,
+                resetPlayer = Array.from(document.getElementsByClassName('pieces'));
+
             sButton.classList.remove('block');
             stopGame = true;
-            playerTurn = true;
+
+            if (rWinner.className.includes('win')) {
+                rWinner.classList.remove('win');
+            } else if (bWinner.className.includes('win')) {
+                bWinner.classList.remove('win');
+            } else if (rWinner.className.includes('tie')) {
+                rWinner.classList.remove('tie');
+            }
+            
+            if (redWin === 1) {
+                resetPlayer.forEach((curr) => {
+                    curr.firstChild.style.zIndex = 1;
+                    curr.lastChild.style.zIndex = 0;
+                    console.log(curr);
+                });
+                playerTurn = true;
+            } else if (blueWin === 1) {
+                resetPlayer.forEach((curr) => {
+                    curr.lastChild.style.zIndex = 1;
+                    curr.firstChild.style.zIndex = 0;
+                });
+                playerTurn = false;
+            }
+
+            resetPlayer.forEach((curr) => {
+                curr.firstChild.style.zIndex = 1
+            });
+
 
             gameHolder.forEach((curr) => {
                 if (curr.id === 'blocker') {
@@ -460,24 +494,34 @@ class Board extends React.Component {
             this.movePiece(elem);
             this.switchPlayer(elem);
             let final = this.checkWinner(twoBoard);
+            let rWinner = document.getElementsByClassName('rWins')[0];
+            let bWinner = document.getElementsByClassName('bWins')[0];
+
             if (final === 'redWin') {
                 stopGame = true;
                 setTimeout(() => {alert('Red Wins The Game!')},300);
                 let rButton = (this.props.buttonHold).parentElement.previousSibling;
                 rButton.classList.remove('block');
+                redWin = 1;
+                blueWin = 0;
+                rWinner.classList.add('win');
             } else if (final === 'blueWin') {
                 stopGame = true;
                 setTimeout(() => {alert('Blue Wins The Game!')},300);
                 let rButton = (this.props.buttonHold).parentElement.previousSibling;
                 rButton.classList.remove('block');
+                redWin = 0;
+                blueWin = 1;
+                bWinner.classList.add('win');
             } else if (final === 'Tie') {
                 stopGame = true;
                 setTimeout(() => {alert('Tie Game!')},300);
                 let rButton = (this.props.buttonHold).parentElement.previousSibling;
                 rButton.classList.remove('block');
+                rWinner.classList.add('tie');
             }
         }
-        
+        console.log(stopGame);
     }
 
 
